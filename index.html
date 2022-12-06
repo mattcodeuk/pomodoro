@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pomodoro App</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#timer {
+  display: flex;
+  font-size: 70px;
+  color: #39FF14;
+}
+
+#controls {
+  display: flex;
+  margin-top: 20px;
+}
+
+button {
+  background-color: transparent;
+  border: 2px solid #39FF14;
+  border-radius: 6px;
+  color: #39FF14;
+  cursor: pointer;
+  font-size: 24px;
+  outline: none;
+  padding: 8px 18px;
+  margin: 10px 10px;
+}
+button:hover {
+    background-color: green;
+    color: white;
+}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="timer">
+      <p id="minutes">25</p>
+      <p>:</p>
+      <p id="seconds">00</p>
+    </div>
+    <div id="controls">
+      <button id="start">Start</button>
+      <button id="stop">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+  <script>
+    const app = document.getElementById('app');
+const minutesEl = document.getElementById('minutes');
+const secondsEl = document.getElementById('seconds');
+const startBtn = document.getElementById('start');
+const stopBtn = document.getElementById('stop');
+const resetBtn = document.getElementById('reset');
+
+let interval;
+let minutes = 25;
+let seconds = 0;
+
+function startTimer() {
+  interval = setInterval(() => {
+    if (minutes === 0 && seconds === 0) {
+      // Timer is up
+      return;
+    }
+
+    if (seconds === 0) {
+      minutes -= 1;
+      seconds = 59;
+    } else {
+      seconds -= 1;
+    }
+
+    minutesEl.innerHTML = minutes < 10 ? `0${minutes}` : minutes;
+    secondsEl.innerHTML = seconds < 10 ? `0${seconds}` : seconds;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(interval);
+}
+
+function resetTimer() {
+  minutes = 25;
+  seconds = 0;
+  minutesEl.innerHTML = '00';
+  secondsEl.innerHTML = '00';
+}
+
+startBtn.addEventListener('click', startTimer);
+stopBtn.addEventListener('click', stopTimer);
+resetBtn.addEventListener('click', resetTimer);
+ </script> 
+</body>
+</html>
